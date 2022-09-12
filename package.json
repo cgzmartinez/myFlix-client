@@ -1,0 +1,19 @@
+{
+    "name": "package.json",
+    "version": "1.0.0",
+    "description": "",
+    "main": "src/index.html",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cgzmartinez/myFlix-client.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/cgzmartinez/myFlix-client/issues"
+    },
+    "homepage": "https://github.com/cgzmartinez/myFlix-client#readme"
+}
