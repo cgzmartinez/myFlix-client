@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from "prop-types";
 
-export function LoginView(props) {
+export function Registration(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [birthday, setBirthday] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
+    console.log(username, password, email, birthday);
     /* Send a request to the server for authentication */
     /* then call props.onLoggedIn(username) */
-    props.onLoggedIn(username);
+    /* assuming this is the same process as login, change to match registration */
+    props.Registration(username);
   };
 
   return (
@@ -23,16 +26,19 @@ export function LoginView(props) {
         Password:
         <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
       </label>
+      <label>
+        Email:
+      </label>
+      <input type="email" value={email} onChange={e => setEmail(e.target.value)} />
+      <label>
+        Birthday:
+      </label>
+      <input type="birthday" value={birthday} onChange={e => setBirthday(e.target.value)} />
       <button type="submit" onClick={handleSubmit}>Submit</button>
-      <button>Register</button>
     </form>
-  );
+  )
 }
 
-LoginView.PropTypes = {
-  user: PropTypes.shape({
-    username: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired
-  }),
-  onLoggedIn: PropTypes.func.isRequired,
+RegistrationView.propTypes = {
+  onRegistration: PropTypes.func.isRequired,
 };
