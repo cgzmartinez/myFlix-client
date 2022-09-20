@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from "prop-types";
 
-export function Registration(props) {
+export function RegistrationView(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -12,12 +12,12 @@ export function Registration(props) {
     console.log(username, password, email, birthday);
     /* Send a request to the server for authentication */
     /* then call props.onLoggedIn(username) */
-    /* assuming this is the same process as login, change to match registration */
-    props.Registration(username);
+    props.onRegistration(username);
   };
 
   return (
     <form>
+      <h1>Register</h1>
       <label>
         Username:
         <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
@@ -27,7 +27,7 @@ export function Registration(props) {
         <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
       </label>
       <label>
-        Email:
+        Email-Id:
       </label>
       <input type="email" value={email} onChange={e => setEmail(e.target.value)} />
       <label>
@@ -40,5 +40,11 @@ export function Registration(props) {
 }
 
 RegistrationView.propTypes = {
+  register: PropTypes.shape({
+    Username: PropTypes.string.isRequired,
+    Password: PropTypes.string.isRequired,
+    Email: PropTypes.string.isRequired,
+    Birthday: PropTypes.string,
+  }),
   onRegistration: PropTypes.func.isRequired,
 };
