@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Image, Card, Container, Row, Col, CardGroup } from 'react-bootstrap';
+import { Button, Image, Card, Container, Row, Col } from 'react-bootstrap';
 
 export class MovieView extends React.Component {
 

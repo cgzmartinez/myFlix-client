@@ -1,15 +1,11 @@
 import React from 'react';
 import axios from 'axios';
-import { Container, Col, Row, Navbar, Nav } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { RegistrationView } from '../registration-view/registration-view';
-
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-
 
 export class MainView extends React.Component {
 
