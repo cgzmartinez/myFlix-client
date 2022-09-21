@@ -27,7 +27,7 @@ export function RegistrationView(props) {
         <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
       </label>
       <label>
-        Email-Id:
+        Email:
       </label>
       <input type="email" value={email} onChange={e => setEmail(e.target.value)} />
       <label>

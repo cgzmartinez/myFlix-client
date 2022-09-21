@@ -25296,20 +25296,20 @@ class MainView extends _reactDefault.default.Component {
             selectedMovie: movie
         });
     }
-    onRegistration(register) {
-        this.setState({
-            register
-        });
-    }
     onLoggedIn(user) {
         this.setState({
             user
         });
     }
+    onRegistration(register) {
+        this.setState({
+            register
+        });
+    }
     render() {
         const { movies , selectedMovie , user , register  } = this.state;
-        if (!register) return(/*#__PURE__*/ _jsxRuntime.jsx(_registrationView.RegistrationView, {
-            onRegistration: (register1)=>this.onRegistration(register1)
+        if (!user) return(/*#__PURE__*/ _jsxRuntime.jsx(_loginView.LoginView, {
+            onLoggedIn: (user1)=>this.onLoggedIn(user1)
             ,
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
@@ -25317,8 +25317,8 @@ class MainView extends _reactDefault.default.Component {
             },
             __self: this
         }));
-        if (!user) return(/*#__PURE__*/ _jsxRuntime.jsx(_loginView.LoginView, {
-            onLoggedIn: (user1)=>this.onLoggedIn(user1)
+        if (!register) return(/*#__PURE__*/ _jsxRuntime.jsx(_registrationView.RegistrationView, {
+            onRegistration: (register1)=>this.onRegistration(register1)
             ,
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
@@ -25373,7 +25373,7 @@ exports.default = MainView;
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","axios":"iYoWk","../login-view/login-view":"054li","../movie-card/movie-card":"6EiBJ","../movie-view/movie-view":"ikZdr","@parcel/transformer-js/src/esmodule-helpers.js":"cCBNM","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"k3JHV","../registration-view/registration-view":"aP2YV"}],"iYoWk":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","axios":"iYoWk","../login-view/login-view":"054li","../movie-card/movie-card":"6EiBJ","../movie-view/movie-view":"ikZdr","../registration-view/registration-view":"aP2YV","@parcel/transformer-js/src/esmodule-helpers.js":"cCBNM","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"k3JHV"}],"iYoWk":[function(require,module,exports) {
 module.exports = require('./lib/axios');
 
 },{"./lib/axios":"3QmO2"}],"3QmO2":[function(require,module,exports) {
@@ -29783,7 +29783,7 @@ class MovieView extends _reactDefault.default.Component {
                                 lineNumber: 35
                             },
                             __self: this,
-                            children: movie.Genre
+                            children: movie.Genre.Name
                         })
                     ]
                 }),
@@ -29811,7 +29811,7 @@ class MovieView extends _reactDefault.default.Component {
                                 lineNumber: 39
                             },
                             __self: this,
-                            children: movie.Director
+                            children: movie.Director.Name
                         })
                     ]
                 }),
@@ -29928,7 +29928,7 @@ function RegistrationView(props) {
                     lineNumber: 29
                 },
                 __self: this,
-                children: "Email-Id:"
+                children: "Email:"
             }),
             /*#__PURE__*/ _jsxRuntime.jsx("input", {
                 type: "email",
