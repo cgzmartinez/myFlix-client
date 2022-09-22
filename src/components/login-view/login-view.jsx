@@ -7,7 +7,34 @@ export function LoginView(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const [ usernameErr, setUsernameErr ] = useState('');
+  const [ passwordErr, setPasswordErr ] = useState('');
+
+  // validate user inputs
+const validate = () => {
+  let isReq = true;
+  if(!username){
+   setUsernameErr('Username Required');
+   isReq = false;
+  }else if(username.length < 2){
+   setUsernameErr('Username must be 2 characters long');
+   isReq = false;
+  }
+  if(!password){
+   setPasswordErr('Password Required');
+   isReq = false;
+  }else if(password.length < 6){
+   setPassword('Password must be 6 characters long');
+   isReq = false;
+  }
+
+  return isReq;
+}
   const handleSubmit = (e) => {
+
+  e.preventDefault();
+  const isReq = validate();
+  if(isReq) {
     e.preventDefault();
     /* Send a request to the server for authentication */
     axios.post('https://cinema-spark.herokuapp.com/login', {
@@ -21,7 +48,8 @@ export function LoginView(props) {
       .catch(e => {
         console.log('no such user')
       });
-  };
+  }
+};
 
   return (
     <Container>
@@ -34,18 +62,19 @@ export function LoginView(props) {
                 <Form>
                   <Form.Group className="mb-3" controlId="formUsername">
                     <Form.Label>Username:</Form.Label>
-                    <Form.Control type="text" placeholder="Enter Username" onChange={e => setUsername(e.target.value)} />
+                    <Form.Control type="text" placeholder="Enter Username" value={username} onChange={e => setUsername(e.target.value)} />
+                    {/* code added here to display validation error */}
+                    {usernameErr && <p>{usernameErr}</p>}
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formPassword">
                     <Form.Label>Password:</Form.Label>
-                    <Form.Control type="password" placeholder="Password must be 8 characters or more" onChange={e => setPassword(e.target.value)} />
+                    <Form.Control type="password" placeholder="Password must be 8 characters or more" value={password} onChange={e => setPassword(e.target.value)} />
+                    {/* code added here to display validation error */}
+                    {passwordErr && <p>{passwordErr}</p>}
                   </Form.Group>
                   <Button className="mb-3" variant="primary" type="submit" onClick={handleSubmit}>
                     Submit
-                  </Button>
-                  <Button className="mb-3 d-flex" variant="primary" type="submit" onClick={handleSubmit}>
-                    Register
                   </Button>
                 </Form>
               </Card.Body>
