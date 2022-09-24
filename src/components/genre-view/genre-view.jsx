@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Button, Container, Col, Row } from 'react-bootstrap';
+import { Button, Container, Col, Row, Card } from 'react-bootstrap';
 
 export class GenreView extends React.Component {
   keypressCallback(event) {
@@ -16,22 +16,26 @@ export class GenreView extends React.Component {
 
     return (
       <Container>
-        <Row className="mt-3">
-          <Col className="label">Genre:</Col>
-          <Col className="value">{genre.Name}</Col>
-        </Row>
-        <Row className="mt-3">
-          <Col className="label">Description:</Col>
-          <Col className="value">{genre.Description}</Col>
-        </Row>
-        <Button
-          onClick={() => {
-            onBackClick();
-          }}
-          variant="primary"
-        >
-          Back
-        </Button>
+        <Card>
+          <Card.Body>
+            <Row className="mt-3">
+              <Col className="label">Genre:</Col>
+              <Col className="value">{genre.Name}</Col>
+            </Row>
+            <Row className="mt-3">
+              <Col className="label">Description:</Col>
+              <Col className="value">{genre.Description}</Col>
+            </Row>
+            <Button
+              onClick={() => {
+                onBackClick();
+              }}
+              variant="primary"
+            >
+              Back
+            </Button>
+          </Card.Body>
+        </Card>
       </Container>
     );
   }

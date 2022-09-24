@@ -49,6 +49,7 @@ export class MovieView extends React.Component {
                       <span className="director-link link">{movie.Director.Name}</span>
                     </Link>
                   </div>
+                  <br></br>
                   <Button variant="primary" onClick={() => { onBackClick(null); }}>Back</Button>
                 </div>
               </Card.Body>

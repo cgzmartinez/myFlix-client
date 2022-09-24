@@ -50,6 +50,7 @@ export function LoginView(props) {
           console.log('no such user')
         });
     }
+    console.log(username, password);
   };
 
   return (

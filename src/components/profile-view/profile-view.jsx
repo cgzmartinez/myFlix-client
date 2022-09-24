@@ -3,7 +3,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-import { Form, Button, Container, Row, Col, Card } from "react-bootstrap"
+import { Form, Figure, Button, Container, Row, Col, Card } from "react-bootstrap"
 
 export class ProfileView extends React.Component {
   constructor() {
@@ -160,7 +160,7 @@ export class ProfileView extends React.Component {
 
   render() {
     const { movies } = this.props;
-    const { FavoriteMovies, username, Email, Birthday } = this.state;
+    const { FavoriteMovies, Username, Email, Birthday } = this.state;
 
     return (
       <Container>
@@ -170,7 +170,7 @@ export class ProfileView extends React.Component {
               <Card.Header>User Profile</Card.Header>
               <Card.Body>
                 <>
-                  <p>Name: {username}</p>
+                  <p>Username: {Username}</p>
                   <p>Email: {Email}</p>
                   <p>Birthday: {Birthday}</p>
                 </>
@@ -194,7 +194,7 @@ export class ProfileView extends React.Component {
                       )
                     }
                   >
-                    <Form.Group>
+                    <Form.Group className="mb-3">
                       <Form.Label>Username</Form.Label>
                       <Form.Control
                         type="text"
@@ -204,7 +204,7 @@ export class ProfileView extends React.Component {
                         required
                       />
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group className="mb-3">
                       <Form.Label>Password</Form.Label>
                       <Form.Control
                         type="password"
@@ -214,7 +214,7 @@ export class ProfileView extends React.Component {
                         required
                       />
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group className="mb-3">
                       <Form.Label>Email</Form.Label>
                       <Form.Control
                         type="email"
@@ -224,7 +224,7 @@ export class ProfileView extends React.Component {
                         required
                       />
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group className="mb-3">
                       <Form.Label>Birthday</Form.Label>
                       <Form.Control
                         type="date"
@@ -232,9 +232,9 @@ export class ProfileView extends React.Component {
                         onChange={(e) => this.setBirthday(e.target.value)}
                       />
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group className="mb-3">
                       <Button
-                        variant="warning"
+                        variant="primary mr-3"
                         type="submit"
                         onClick={() => this.editUser()}
                       >
@@ -255,31 +255,24 @@ export class ProfileView extends React.Component {
           </Col>
         </Row>
         <Row></Row>
-        <Card className="favmov-inputs">
+        <Card className="favoritemovie-inputs">
           <Card.Body>
             <Row>
-              <Col xs={12}>
+              <Col>
                 <h4>Favorite Movies</h4>
               </Col>
             </Row>
             <Row>
-              {FavoriteMovies.map((ImagePath, Title, _id) => {
+              {FavoriteMovies.map((movieId) => {
+                let movie = movies.find((m) => m._id === movieId);
                 return (
-                  <Col key={_id} className="fav-movie">
-                    <Figure>
-                      <Link to={`/movies/${movies._id}`}>
-                        <Figure.Image src={ImagePath} alt={Title} />
-                        <Figure.Caption>{Title}</Figure.Caption>
-                      </Link>
-                    </Figure>
-                    <Button
-                      className="remove"
-                      variant="secondary"
-                      onClick={() => removeFav(movies._id)}
-                    >
-                      Remove from the list
-                    </Button>
-                  </Col>
+                  <FavoriteCard
+                    key={movieId}
+                    movie={movie}
+                    handleFavorite={handleFavorite}
+                  >
+                    {movie.title}
+                  </FavoriteCard>
                 );
               })}
             </Row>

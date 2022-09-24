@@ -24,8 +24,8 @@ export function Navbar({ user, onLoggedOut }) {
   };
 
   return (
-    <Navbar className="main-nav" sticky="top" bg="dark"
-      expand="lg" variant="dark">
+    <Navbar className="main-nav" sticky="top" bg="light"
+      expand="lg" variant="light">
       <Container>
         <Navbar.Brand className="navbar-logo" href="/">Cinema-Spark</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

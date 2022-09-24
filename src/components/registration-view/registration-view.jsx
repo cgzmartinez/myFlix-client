@@ -1,47 +1,76 @@
 import React, { useState } from 'react';
 import PropTypes from "prop-types";
 import { Form, Button, Card, CardGroup, Container, Col, Row } from 'react-bootstrap';
-
+import axios from 'axios';
 
 export function RegistrationView(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [birthday, setBirthday] = useState('');
+
   const [values, setValues] = useState({
-    nameErr: "",
-    username: "",
-    passwordErr: "",
-    emailErr: "",
+    usernameErr: '',
+    passwordErr: '',
+    birthdayErr: '',
+    emailErr: '',
   });
 
   const validate = () => {
     let isReq = true;
+    setValues((prev) => {
+      return {
+        usernameErr: '',
+        passwordErr: '',
+        birthdayErr: '',
+        emailErr: '',
+      };
+    });
     if (!username) {
-      setValues({ ...values, usernameErr: "Username Required" });
-      isReq = false;
-    } else if (username.length < 5) {
-      setValues({
-        ...values,
-        usernameErr: "Username must be atleast 5 characters long.",
+      // setValues re-defines values through a callback that receives
+      // the previous state of values & must return values updated
+      setValues((prevValues) => {
+        return { ...prevValues, usernameErr: 'Username is required.' };
       });
       isReq = false;
+    } else if (username.length < 5) {
+      setValues((prevValues) => {
+        return {
+          ...prevValues,
+          usernameErr: 'Username must be at least 5 characters long.',
+        };
+      });
     }
     if (!password) {
-      setValues({ ...values, passwordErr: "Password Required" });
+      setValues((prevValues) => {
+        return { ...prevValues, passwordErr: 'Password is required.' };
+      });
       isReq = false;
     } else if (password.length < 6) {
-      setValues({
-        ...values,
-        passwordErr: "Password must be atleast 6 characters long",
+      setValues((prevValues) => {
+        return {
+          ...prevValues,
+          passwordErr: 'Password must be at least 6 characters long.',
+        };
       });
       isReq = false;
     }
     if (!email) {
-      setValues({ ...values, emailErr: "Email Required" });
+      setValues({
+        prevValues,
+        emailErr: 'Email is required.',
+      });
       isReq = false;
-    } else if (email.indexOf("@") === -1) {
-      setValues({ ...values, emailErr: "Email is invalid" });
+    } else if (email.indexOf('@') === -1) {
+      setValues((prevValues) => {
+        return { ...prevValues, emailErr: 'Enter a valid email address.' };
+      });
+      isReg = false;
+    }
+    if (!birthday) {
+      setValues((prevValues) => {
+        return { ...prevValues, birthdayErr: 'Enter a valid date.' };
+      });
       isReq = false;
     }
     return isReq;
@@ -53,20 +82,18 @@ export function RegistrationView(props) {
     if (isReq) {
       axios
         .post("https://cinema-spark.herokuapp.com/users", {
-          username: username,   // ensure username and password are lowercase
-          password: password,
+          Username: username,   // ensure username and password are lowercase
+          Password: password,
           Email: email,
           Birthday: birthday,
         })
         .then((response) => {
           const data = response.data;
           console.log(data);
-          alert("Registration successful, please login");
-          window.open("/", "_self"); // the second argument '_self' is necessary so that the page will open in the current tab
+          window.open('/', '_self');
         })
-        .catch((response) => {
-          console.error(response);
-          alert("unable to register");
+        .catch((e) => {
+          console.log('error registering the user.');
         });
     }
   };
@@ -82,18 +109,39 @@ export function RegistrationView(props) {
                 <Form>
                   <Form.Group className="mb-3" controlId="formUsername">
                     <Form.Label>Username:</Form.Label>
-                    <Form.Control type="text" required placeholder="Enter a Username" onChange={e => setUsername(e.target.value)} />
-                  </Form.Group>
+                    <Form.Control
+                      type="password"
+                      value={password}
+                      onChange={(event) => setPassword(event.target.value)}
+                      placeholder="Enter your password"
+                    />
+                    {values.passwordErr && (
+                      <p className="validation-message">{values.passwordErr}</p>
+                    )}                  </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formPassword">
                     <Form.Label>Password:</Form.Label>
-                    <Form.Control type="password" minLength="8" required placeholder="Password must be 8 characters or more" onChange={e => setPassword(e.target.value)} />
-                  </Form.Group>
+                    <Form.Control
+                      type="text"
+                      value={username}
+                      onChange={(event) => setUsername(event.target.value)}
+                      placeholder="Enter your username"
+                    />
+                    {values.usernameErr && (
+                      <p className="validation-message">{values.usernameErr}</p>
+                    )}                  </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formEmail">
                     <Form.Label>Email:</Form.Label>
-                    <Form.Control type="email" required placeholder="Enter a Valid Email Address" onChange={e => setEmail(e.target.value)} />
-                  </Form.Group>
+                    <Form.Control
+                      type="email"
+                      value={email}
+                      onChange={(event) => setEmail(event.target.value)}
+                      placeholder="Enter your email"
+                    />
+                    {values.emailErr && (
+                      <p className="validation-message">{values.emailErr}</p>
+                    )}                  </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formBirthday">
                     <Form.Label>Birthday:</Form.Label>
@@ -116,7 +164,6 @@ export function RegistrationView(props) {
 
 RegistrationView.propTypes = {
   register: PropTypes.shape({
-    Name: PropTypes.string.isRequired,
     Username: PropTypes.string.isRequired,
     Password: PropTypes.string.isRequired,
     Email: PropTypes.string.isRequired,
