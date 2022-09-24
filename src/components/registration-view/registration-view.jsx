@@ -53,7 +53,7 @@ export function RegistrationView(props) {
     if (isReq) {
       axios
         .post("https://cinema-spark.herokuapp.com/users", {
-          username: username,
+          username: username,   // ensure username and password are lowercase
           password: password,
           Email: email,
           Birthday: birthday,
