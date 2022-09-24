@@ -33,11 +33,11 @@ export function RegistrationView(props) {
         return { ...prevValues, usernameErr: 'Username is required.' };
       });
       isReq = false;
-    } else if (username.length < 5) {
+    } else if (username.length < 6) {
       setValues((prevValues) => {
         return {
           ...prevValues,
-          usernameErr: 'Username must be at least 5 characters long.',
+          usernameErr: 'Username must be at least 6 characters long!',
         };
       });
     }
@@ -50,7 +50,7 @@ export function RegistrationView(props) {
       setValues((prevValues) => {
         return {
           ...prevValues,
-          passwordErr: 'Password must be at least 6 characters long.',
+          passwordErr: 'Password must be at least 6 characters long!',
         };
       });
       isReq = false;
@@ -110,25 +110,25 @@ export function RegistrationView(props) {
                   <Form.Group className="mb-3" controlId="formUsername">
                     <Form.Label>Username:</Form.Label>
                     <Form.Control
-                      type="password"
-                      value={password}
-                      onChange={(event) => setPassword(event.target.value)}
-                      placeholder="Enter your password"
+                      type="text"
+                      value={username}
+                      onChange={(event) => setUsername(event.target.value)}
+                      placeholder="Username must be more than 6 characters"
                     />
-                    {values.passwordErr && (
-                      <p className="validation-message">{values.passwordErr}</p>
+                    {values.usernameErr && (
+                      <p className="validation-message">{values.usernameErr}</p>
                     )}                  </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formPassword">
                     <Form.Label>Password:</Form.Label>
                     <Form.Control
-                      type="text"
-                      value={username}
-                      onChange={(event) => setUsername(event.target.value)}
-                      placeholder="Enter your username"
+                      type="password"
+                      value={password}
+                      onChange={(event) => setPassword(event.target.value)}
+                      placeholder="Password must be more than 6 characters"
                     />
-                    {values.usernameErr && (
-                      <p className="validation-message">{values.usernameErr}</p>
+                    {values.passwordErr && (
+                      <p className="validation-message">{values.passwordErr}</p>
                     )}                  </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formEmail">
@@ -137,7 +137,7 @@ export function RegistrationView(props) {
                       type="email"
                       value={email}
                       onChange={(event) => setEmail(event.target.value)}
-                      placeholder="Enter your email"
+                      placeholder="Enter a valid email"
                     />
                     {values.emailErr && (
                       <p className="validation-message">{values.emailErr}</p>

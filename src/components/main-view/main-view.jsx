@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 
-import { BrowserRouter as Router, Route, Routes, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { Col, Row } from 'react-bootstrap';
 
-import { Navbar } from '../navbar/navbar';
+import { Menubar } from '../navbar/navbar';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
@@ -105,7 +105,7 @@ export class MainView extends React.Component {
     const { movies, user, favoriteMovies } = this.state;
     return (
       <Router>
-        <Navbar user={user} />
+        <Menubar user={user} />
         <Row className="main-view justify-content-md-center">
           <Route exact path="/" render={() => {
             if (!user) return <Col>

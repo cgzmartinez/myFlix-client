@@ -17,15 +17,15 @@ export function LoginView(props) {
     if (!username) {
       setUsernameErr('Username Required');
       isReq = false;
-    } else if (username.length < 8) {
-      setUsernameErr('Username must be at least 8 characters long!');
+    } else if (username.length < 6) {
+      setUsernameErr('Username must be at least 6 characters long!');
       isReq = false;
     }
     if (!password) {
       setPasswordErr('Password Required');
       isReq = false;
-    } else if (password.length < 8) {
-      setPassword('Password must be 8 characters long!');
+    } else if (password.length < 6) {
+      setPassword('Password must be 6 characters long!');
       isReq = false;
     }
 
@@ -71,7 +71,7 @@ export function LoginView(props) {
 
                   <Form.Group className="mb-3" controlId="formPassword">
                     <Form.Label>Password:</Form.Label>
-                    <Form.Control type="password" placeholder="Password must be 8 characters or more" value={password} onChange={e => setPassword(e.target.value)} />
+                    <Form.Control type="password" placeholder="Enter Password" value={password} onChange={e => setPassword(e.target.value)} />
                     {/* code added here to display validation error */}
                     {passwordErr && <p>{passwordErr}</p>}
                   </Form.Group>

@@ -1,9 +1,7 @@
 import React from "react";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 
-
-export function Navbar({ user, onLoggedOut }) {
+export function Menubar({ user, onLoggedOut }) {
 
   const handleLogOut = (e) => {
     e.preventDefault();
@@ -50,4 +48,4 @@ export function Navbar({ user, onLoggedOut }) {
   );
 }
 
-export default Navbar
+export default Menubar
