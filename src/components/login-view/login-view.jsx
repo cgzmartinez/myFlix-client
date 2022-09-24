@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Card, CardGroup, Container, Col, Row } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 import axios from 'axios';
 
@@ -7,49 +8,49 @@ export function LoginView(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const [ usernameErr, setUsernameErr ] = useState('');
-  const [ passwordErr, setPasswordErr ] = useState('');
+  const [usernameErr, setUsernameErr] = useState('');
+  const [passwordErr, setPasswordErr] = useState('');
 
   // validate user inputs
-const validate = () => {
-  let isReq = true;
-  if(!username){
-   setUsernameErr('Username Required');
-   isReq = false;
-  }else if(username.length < 2){
-   setUsernameErr('Username must be 2 characters long');
-   isReq = false;
-  }
-  if(!password){
-   setPasswordErr('Password Required');
-   isReq = false;
-  }else if(password.length < 6){
-   setPassword('Password must be 6 characters long');
-   isReq = false;
-  }
+  const validate = () => {
+    let isReq = true;
+    if (!username) {
+      setUsernameErr('Username Required');
+      isReq = false;
+    } else if (username.length < 8) {
+      setUsernameErr('Username must be at least 8 characters long!');
+      isReq = false;
+    }
+    if (!password) {
+      setPasswordErr('Password Required');
+      isReq = false;
+    } else if (password.length < 8) {
+      setPassword('Password must be 8 characters long!');
+      isReq = false;
+    }
 
-  return isReq;
-}
+    return isReq;
+  }
   const handleSubmit = (e) => {
 
-  e.preventDefault();
-  const isReq = validate();
-  if(isReq) {
     e.preventDefault();
-    /* Send a request to the server for authentication */
-    axios.post('https://cinema-spark.herokuapp.com/login', {
-      Username: username,
-      Password: password
-    })
-      .then(response => {
-        const data = response.data;
-        props.onLoggedIn(data);
+    const isReq = validate();
+    if (isReq) {
+      e.preventDefault();
+      /* Send a request to the server for authentication */
+      axios.post('https://cinema-spark.herokuapp.com/login', {
+        username: username,
+        password: password
       })
-      .catch(e => {
-        console.log('no such user')
-      });
-  }
-};
+        .then(response => {
+          const data = response.data;
+          props.onLoggedIn(data);
+        })
+        .catch(e => {
+          console.log('no such user')
+        });
+    }
+  };
 
   return (
     <Container>
@@ -58,7 +59,7 @@ const validate = () => {
           <CardGroup>
             <Card>
               <Card.Body>
-                <Card.Title>Sign In</Card.Title>
+                <Card.Title>Log In</Card.Title>
                 <Form>
                   <Form.Group className="mb-3" controlId="formUsername">
                     <Form.Label>Username:</Form.Label>
@@ -85,3 +86,7 @@ const validate = () => {
     </Container>
   );
 }
+
+LoginView.propTypes = {
+  onLoggedIn: PropTypes.func.isRequired,
+};

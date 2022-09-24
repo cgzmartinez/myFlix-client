@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from "prop-types";
 import { Form, Button, Card, CardGroup, Container, Col, Row } from 'react-bootstrap';
 
 
@@ -7,13 +8,67 @@ export function RegistrationView(props) {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [birthday, setBirthday] = useState('');
+  const [values, setValues] = useState({
+    nameErr: "",
+    username: "",
+    passwordErr: "",
+    emailErr: "",
+  });
+
+  const validate = () => {
+    let isReq = true;
+    if (!username) {
+      setValues({ ...values, usernameErr: "Username Required" });
+      isReq = false;
+    } else if (username.length < 5) {
+      setValues({
+        ...values,
+        usernameErr: "Username must be atleast 5 characters long.",
+      });
+      isReq = false;
+    }
+    if (!password) {
+      setValues({ ...values, passwordErr: "Password Required" });
+      isReq = false;
+    } else if (password.length < 6) {
+      setValues({
+        ...values,
+        passwordErr: "Password must be atleast 6 characters long",
+      });
+      isReq = false;
+    }
+    if (!email) {
+      setValues({ ...values, emailErr: "Email Required" });
+      isReq = false;
+    } else if (email.indexOf("@") === -1) {
+      setValues({ ...values, emailErr: "Email is invalid" });
+      isReq = false;
+    }
+    return isReq;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password, email, birthday);
-    /* Send a request to the server for authentication */
-    /* then call props.onLoggedIn(username) */
-    props.onRegistration(username);
+    const isReq = validate();
+    if (isReq) {
+      axios
+        .post("https://cinema-spark.herokuapp.com/users", {
+          username: username,
+          password: password,
+          Email: email,
+          Birthday: birthday,
+        })
+        .then((response) => {
+          const data = response.data;
+          console.log(data);
+          alert("Registration successful, please login");
+          window.open("/", "_self"); // the second argument '_self' is necessary so that the page will open in the current tab
+        })
+        .catch((response) => {
+          console.error(response);
+          alert("unable to register");
+        });
+    }
   };
 
   return (
@@ -58,3 +113,13 @@ export function RegistrationView(props) {
     </Container>
   )
 }
+
+RegistrationView.propTypes = {
+  register: PropTypes.shape({
+    Name: PropTypes.string.isRequired,
+    Username: PropTypes.string.isRequired,
+    Password: PropTypes.string.isRequired,
+    Email: PropTypes.string.isRequired,
+    Birthday: PropTypes.string.isRequired,
+  }),
+};
