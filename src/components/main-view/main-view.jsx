@@ -40,7 +40,7 @@ export class MainView extends React.Component {
       .then(response => {
         // Assign the result to the state
         this.setState({
-          movies: response.data
+          movies: response.data,
         });
       })
       .catch(function (error) {
@@ -67,34 +67,39 @@ export class MainView extends React.Component {
     });
   }
 
-  handleFav = (movieId, action) => {
+  handleFav = (movie, action) => {
     const { user, favoriteMovies } = this.state;
     const token = localStorage.getItem('token');
     if (token !== null && user !== null) {
-      let url = `https://cinema-spark.herokuapp.com/users/${user}/${movieId}`;
 
       if (action === 'add') {
-        this.setState({ favoriteMovies: [...favoriteMovies, movieId] });
+        this.setState({ favoriteMovies: [...favoriteMovies, movie] });
         axios
-          .post(url, {}, { headers: { Authorization: `Bearer ${token}` } })
+          .post(
+            `https://cinema-spark.herokuapp.com/users/${user}/${movie._Id}`,
+            {},
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          )
           .then((res) => {
             alert(`Movie added to ${user} Favorite movies`);
           })
           .catch((err) => {
             console.log(err);
           });
+
         // Remove MovieID from Favorites (local state & webserver)
       } else if (action === 'remove') {
         this.setState({
-          favoriteMovies: favoriteMovies.filter((id) => id !== movieId),
+          favoriteMovies: favoriteMovies.filter((id) => id !== movie._Id),
         });
         axios
-          .delete(`cinema-spark.herokuapp.com/users/${user}/${movieId}`, {
+          .delete(`cinema-spark.herokuapp.com/users/${user}/${movie._Id}`, {
             headers: { Authorization: `Bearer ${token}` },
           })
           .then((res) => {
             alert(`Movie removed from ${user} favorite movies`);
-            window.open(`/users/${user}`, '_self');
           })
           .catch((error) => console.error('removeFav Error ' + error));
       }
@@ -167,8 +172,8 @@ export class MainView extends React.Component {
                   movies={movies}
                   user={user}
                   onBackClick={() => history.goBack()}
-                  handleFav={this.handleFav}
                   favoriteMovies={favoriteMovies || []}
+                  handleFav={this.handleFav}
                 />
               );
             }}

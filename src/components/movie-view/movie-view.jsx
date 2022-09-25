@@ -1,19 +1,32 @@
 import React from 'react';
-import { Button, Image, Card, Container, Row, Col } from 'react-bootstrap';
+import axios from 'axios';
 import { Link } from "react-router-dom";
+import { Button, Image, Card, Container, Row, Col } from 'react-bootstrap';
 
 export class MovieView extends React.Component {
 
-  keypressCallback(event) {
-    console.log(event.key);
-  }
-
-  componentDidMount() {
-    document.addEventListener('keypress', this.keypressCallback);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keypress', this.keypressCallback);
+  addFavoriteMovie(e) {
+    const { movie } = this.props;
+    e.preventDefault();
+    axios
+      .post(
+        `https://cinema-spark.herokuapp.com/users/${localStorage.getItem(
+          "user"
+        )}/Movies/${movie._id}`,
+        { username: localStorage.getItem("user") },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      )
+      .then((res) => {
+        alert(`${movie.Title} successfully added to your favorites`);
+      })
+      .then((res) => {
+        document.location.reload(true);
+      })
+      .catch((error) => {
+        alert(`${movie.Title} not added to your favorites` + error);
+      });
   }
 
   render() {
@@ -51,6 +64,15 @@ export class MovieView extends React.Component {
                   </div>
                   <br></br>
                   <Button variant="primary" onClick={() => { onBackClick(null); }}>Back</Button>
+                  <br></br>
+                  <br></br>
+                  <Button
+                    variant="outline-primary"
+                    value={movie._id}
+                    onClick={(e) => this.addFavoriteMovie(e, movie)}
+                  >
+                    Add to Favorites
+                  </Button>
                 </div>
               </Card.Body>
             </Card>
