@@ -89,8 +89,7 @@ export class ProfileView extends React.Component {
       });
   };
 
-  onRemoveFavorite = (e, movie) => {
-    e.preventDefault();
+  onRemoveFavorite = (movie) => {
     const Username = localStorage.getItem('user');
     const token = localStorage.getItem('token');
 
@@ -103,7 +102,7 @@ export class ProfileView extends React.Component {
       )
       .then((response) => {
         console.log(response);
-        alert("Movie removed");
+        alert("Movie removed from Favorite Movies!");
         this.componentDidMount();
       })
       .catch(function (error) {
@@ -288,7 +287,7 @@ export class ProfileView extends React.Component {
                           <Button
                             value={movie._id}
                             variant="secondary"
-                            onClick={(e) => this.onRemoveFavorite(e, movie)}>
+                            onClick={() => this.onRemoveFavorite(movie)}>
                             Remove
                           </Button>
                         </Figure>
