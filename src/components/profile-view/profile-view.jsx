@@ -14,6 +14,7 @@ export class ProfileView extends React.Component {
       Email: null,
       Birthday: null,
       FavoriteMovies: [],
+      movies: [],
     };
   }
 
@@ -90,19 +91,20 @@ export class ProfileView extends React.Component {
 
   onRemoveFavorite = (e, movie) => {
     e.preventDefault();
-    const Username = localStorage.getItem("user");
-    console.log(Username);
-    const token = localStorage.getItem("token");
-    console.log(this.props);
+    const Username = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
+
     axios
       .delete(
         `https://cinema-spark.herokuapp.com/users/${Username}/movies/${movie._id}`,
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       )
       .then((response) => {
         console.log(response);
+        alert("Movie removed");
         this.componentDidMount();
-        alert("Movie was removed from favorites.");
       })
       .catch(function (error) {
         console.log(error);
@@ -160,7 +162,7 @@ export class ProfileView extends React.Component {
   }
 
   render() {
-    const { movies } = this.props;
+    const { movies, onBackClick } = this.props;
     const { FavoriteMovies, Username, Email, Birthday } = this.state;
 
     return (
@@ -285,7 +287,6 @@ export class ProfileView extends React.Component {
                           </Link>
                           <Button
                             value={movie._id}
-                            className="remove"
                             variant="secondary"
                             onClick={(e) => this.onRemoveFavorite(e, movie)}>
                             Remove
@@ -298,6 +299,9 @@ export class ProfileView extends React.Component {
             </Row>
           </Card.Body>
         </Card>
+        <div className="backButton">
+          <Button variant="outline-primary" onClick={() => { onBackClick(null); }}>Back</Button>
+        </div>
       </Container>
     );
   }
@@ -308,7 +312,7 @@ ProfileView.propTypes = {
     Username: PropTypes.string,
     Password: PropTypes.string,
     Email: PropTypes.string,
-    Birthday: PropTypes.date,
+    Birthday: PropTypes.string,
     FavoriteMovies: PropTypes.array,
   }),
 };

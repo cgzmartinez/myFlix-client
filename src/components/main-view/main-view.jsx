@@ -23,16 +23,7 @@ export class MainView extends React.Component {
     };
   }
 
-  componentDidMount() {
-    let accessToken = localStorage.getItem('token');
-    if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem('user')
-      });
-      this.getMovies(accessToken);
-    }
-  }
-
+  //Get movies
   getMovies(token) {
     axios.get('https://cinema-spark.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${token}` }
@@ -48,6 +39,18 @@ export class MainView extends React.Component {
       });
   }
 
+  //Get token
+  componentDidMount() {
+    let accessToken = localStorage.getItem('token');
+    if (accessToken !== null) {
+      this.setState({
+        user: localStorage.getItem('user')
+      });
+      this.getMovies(accessToken);
+    }
+  }
+
+  //Log in
   onLoggedIn(authData) {
     console.log(authData);
     this.setState({
@@ -59,6 +62,7 @@ export class MainView extends React.Component {
     this.getMovies(authData.token);
   }
 
+  //Log out
   onLoggedOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -67,7 +71,7 @@ export class MainView extends React.Component {
     });
   }
 
-  handleFav = (movie, action) => {
+  /*handleFav = (movie, action) => {
     const { user, favoriteMovies } = this.state;
     const token = localStorage.getItem('token');
     if (token !== null && user !== null) {
@@ -104,7 +108,7 @@ export class MainView extends React.Component {
           .catch((error) => console.error('removeFav Error ' + error));
       }
     }
-  };
+  };*/
 
   render() {
     const { movies, user, favoriteMovies } = this.state;
@@ -173,7 +177,9 @@ export class MainView extends React.Component {
                   user={user}
                   onBackClick={() => history.goBack()}
                   favoriteMovies={favoriteMovies || []}
-                  handleFav={this.handleFav}
+                //handleFav={this.handleFav}
+                //removeFavorite={this.removeFavorite}
+
                 />
               );
             }}
