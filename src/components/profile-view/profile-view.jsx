@@ -171,11 +171,11 @@ export class ProfileView extends React.Component {
             <Card className="user-profile">
               <Card.Header>User Profile</Card.Header>
               <Card.Body>
-                <>
+                <div>
                   <p>Username: {Username}</p>
                   <p>Email: {Email}</p>
                   <p>Birthday: {Birthday}</p>
-                </>
+                </div>
               </Card.Body>
             </Card>
           </Col>
@@ -307,7 +307,7 @@ export class ProfileView extends React.Component {
 }
 
 ProfileView.propTypes = {
-  user: PropTypes.shape({
+  User: PropTypes.shape({
     Username: PropTypes.string,
     Password: PropTypes.string,
     Email: PropTypes.string,

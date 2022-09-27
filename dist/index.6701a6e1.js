@@ -45707,7 +45707,12 @@ class ProfileView extends _reactDefault.default.Component {
                                             lineNumber: 173
                                         },
                                         __self: this,
-                                        children: /*#__PURE__*/ _jsxRuntime.jsxs(_jsxRuntime.Fragment, {
+                                        children: /*#__PURE__*/ _jsxRuntime.jsxs("div", {
+                                            __source: {
+                                                fileName: "src/components/profile-view/profile-view.jsx",
+                                                lineNumber: 174
+                                            },
+                                            __self: this,
                                             children: [
                                                 /*#__PURE__*/ _jsxRuntime.jsxs("p", {
                                                     __source: {
@@ -46100,7 +46105,7 @@ class ProfileView extends _reactDefault.default.Component {
     }
 }
 ProfileView.propTypes = {
-    user: _propTypesDefault.default.shape({
+    User: _propTypesDefault.default.shape({
         Username: _propTypesDefault.default.string,
         Password: _propTypesDefault.default.string,
         Email: _propTypesDefault.default.string,
