@@ -1,5 +1,7 @@
 import React from "react";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import Logo from '/public/logo.png'
+import { Link } from "react-router-dom";
 
 export function Menubar({ user, onLoggedOut }) {
 
@@ -25,7 +27,10 @@ export function Menubar({ user, onLoggedOut }) {
     <Navbar className="main-nav" sticky="top" bg="light"
       expand="lg" variant="light">
       <Container>
-        <Navbar.Brand className="navbar-logo" href="/">Cinema-Spark</Navbar.Brand>
+        <Link to="/">
+          <img src={Logo} height={65} />
+        </Link>
+        <Navbar.Brand className="navbar-logo" href="/">CINEMA SPARK</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">

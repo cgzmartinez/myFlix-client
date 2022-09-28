@@ -1,11 +1,17 @@
 import React from 'react';
 import axios from 'axios';
 
+import { connect } from 'react-redux';
+
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { Col, Row } from 'react-bootstrap';
 
+import { setMovies } from '../../actions/actions';
+
+import MoviesList from '../movies-list/movies-list';
+
 import { Menubar } from '../navbar/navbar';
-import { MovieCard } from '../movie-card/movie-card';
+//import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
@@ -13,32 +19,14 @@ import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
 import { ProfileView } from '../profile-view/profile-view';
 
-export class MainView extends React.Component {
+class MainView extends React.Component {
 
   constructor() {
     super();
     this.state = {
-      movies: [],
       user: null,
     };
   }
-
-  //Get movies
-  getMovies(token) {
-    axios.get('https://cinema-spark.herokuapp.com/movies', {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-      .then(response => {
-        // Assign the result to the state
-        this.setState({
-          movies: response.data,
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-
   //Get token
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
@@ -48,6 +36,19 @@ export class MainView extends React.Component {
       });
       this.getMovies(accessToken);
     }
+  }
+  //Get movies
+  getMovies(token) {
+    axios.get('https://cinema-spark.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(response => {
+        // Assign the result to the state
+        this.props.setMovies(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   //Log in
@@ -71,47 +72,9 @@ export class MainView extends React.Component {
     });
   }
 
-  /*handleFav = (movie, action) => {
-    const { user, favoriteMovies } = this.state;
-    const token = localStorage.getItem('token');
-    if (token !== null && user !== null) {
-
-      if (action === 'add') {
-        this.setState({ favoriteMovies: [...favoriteMovies, movie] });
-        axios
-          .post(
-            `https://cinema-spark.herokuapp.com/users/${user}/${movie._Id}`,
-            {},
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          )
-          .then((res) => {
-            alert(`Movie added to ${user} Favorite movies`);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-
-        // Remove MovieID from Favorites (local state & webserver)
-      } else if (action === 'remove') {
-        this.setState({
-          favoriteMovies: favoriteMovies.filter((id) => id !== movie._Id),
-        });
-        axios
-          .delete(`cinema-spark.herokuapp.com/users/${user}/${movie._Id}`, {
-            headers: { Authorization: `Bearer ${token}` },
-          })
-          .then((res) => {
-            alert(`Movie removed from ${user} favorite movies`);
-          })
-          .catch((error) => console.error('removeFav Error ' + error));
-      }
-    }
-  };*/
-
   render() {
-    const { movies, user, favoriteMovies } = this.state;
+    let { movies } = this.props;
+    let { user } = this.state;
     return (
       <Router>
         <Menubar user={user} />
@@ -121,11 +84,7 @@ export class MainView extends React.Component {
               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
             </Col>
             if (movies.length === 0) return <div className="main-view" />;
-            return movies.map(m => (
-              <Col md={3} key={m._id}>
-                <MovieCard movie={m} />
-              </Col>
-            ))
+            return <MoviesList movies={movies} />;
           }} />
           <Route exact path="/register" render={() => {
             if (user) return <Redirect to="/" />
@@ -190,4 +149,8 @@ export class MainView extends React.Component {
   }
 }
 
-export default MainView
+let mapStateToProps = state => {
+  return { movies: state.movies }
+}
+
+export default connect(mapStateToProps, { setMovies })(MainView);

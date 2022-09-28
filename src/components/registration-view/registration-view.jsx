@@ -105,7 +105,7 @@ export function RegistrationView(props) {
           <CardGroup>
             <Card>
               <Card.Body>
-                <Card.Title>Register Here</Card.Title>
+                <Card.Title>Sign up</Card.Title>
                 <Form>
                   <Form.Group className="mb-3" controlId="formUsername">
                     <Form.Label>Username:</Form.Label>
@@ -113,7 +113,7 @@ export function RegistrationView(props) {
                       type="text"
                       value={username}
                       onChange={(event) => setUsername(event.target.value)}
-                      placeholder="Username must be more than 6 characters"
+                      placeholder="Must be more than 6 characters"
                     />
                     {values.usernameErr && (
                       <p className="validation-message">{values.usernameErr}</p>
@@ -125,7 +125,7 @@ export function RegistrationView(props) {
                       type="password"
                       value={password}
                       onChange={(event) => setPassword(event.target.value)}
-                      placeholder="Password must be more than 6 characters"
+                      placeholder="Must be more than 6 characters"
                     />
                     {values.passwordErr && (
                       <p className="validation-message">{values.passwordErr}</p>
@@ -145,7 +145,7 @@ export function RegistrationView(props) {
 
                   <Form.Group className="mb-3" controlId="formBirthday">
                     <Form.Label>Birthday:</Form.Label>
-                    <Form.Control type="birthday" placeholder="Enter Your Birthday" onChange={e => setBirthday(e.target.value)} />
+                    <Form.Control type="birthday" placeholder="MM/DD/YYYY" onChange={e => setBirthday(e.target.value)} />
                   </Form.Group>
                   <br></br>
 
