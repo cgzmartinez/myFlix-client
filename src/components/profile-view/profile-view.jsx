@@ -168,8 +168,8 @@ export class ProfileView extends React.Component {
       <Container>
         <Row>
           <Col>
-            <Card className="user-profile">
-              <Card.Header>User Profile</Card.Header>
+            <Card className="user-profile mt-4 bg-dark text-white" style={{ borderRadius: '20px' }}>
+              <Card.Header>USER PROFILE</Card.Header>
               <Card.Body>
                 <div>
                   <p>Username: {Username}</p>
@@ -180,8 +180,8 @@ export class ProfileView extends React.Component {
             </Card>
           </Col>
           <Col>
-            <Card className="update-inputs">
-              <Card.Header>Update Profile</Card.Header>
+            <Card className="update-inputs mt-4 mb-5 bg-dark text-white" style={{ borderRadius: '20px' }}>
+              <Card.Header>UPDATE PROFILE</Card.Header>
               <Card.Body>
                 <Card.Text>
                   <Form
@@ -197,46 +197,50 @@ export class ProfileView extends React.Component {
                     }
                   >
                     <Form.Group className="mb-3">
-                      <Form.Label>Username</Form.Label>
+                      <Form.Label>New Username</Form.Label>
                       <Form.Control
                         type="text"
                         name="username"
+                        className="bg-dark"
                         placeholder="New Username"
                         onChange={(e) => this.setUsername(e.target.value)}
                         required
                       />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                      <Form.Label>Password</Form.Label>
+                      <Form.Label>New Password</Form.Label>
                       <Form.Control
                         type="password"
                         name="password"
+                        className="bg-dark"
                         placeholder="New Password"
                         onChange={(e) => this.setPassword(e.target.value)}
                         required
                       />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                      <Form.Label>Email</Form.Label>
+                      <Form.Label>Update Email</Form.Label>
                       <Form.Control
                         type="email"
                         name="Email"
+                        className="bg-dark"
                         placeholder="New Email"
                         onChange={(e) => this.setEmail(e.target.value)}
                         required
                       />
                     </Form.Group>
-                    <Form.Group className="mb-3">
+                    <Form.Group className="mb-4">
                       <Form.Label>Birthday</Form.Label>
                       <Form.Control
                         type="date"
                         name="Birthday"
+                        className="bg-dark"
                         onChange={(e) => this.setBirthday(e.target.value)}
                       />
                     </Form.Group>
-                    <Form.Group className="mb-3">
+                    <Form.Group className="mb-4">
                       <Button
-                        variant="primary mr-3"
+                        variant="primary mt-3 mr-4"
                         type="submit"
                         onClick={() => this.editUser()}
                       >
@@ -244,7 +248,7 @@ export class ProfileView extends React.Component {
                       </Button>
                       <Button
                         className="delete-button"
-                        variant="danger"
+                        variant="danger mt-3"
                         onClick={() => this.onDeleteUser()}
                       >
                         Delete User
@@ -257,14 +261,14 @@ export class ProfileView extends React.Component {
           </Col>
         </Row>
         <Row></Row>
-        <Card className="favmov-inputs">
+        <Card className="bg-dark text-white">
           <Card.Header>
             <h4>Favorite Movies</h4>
           </Card.Header>
           <Card.Body>
-            <Row>
+            <Row className="text-align-center">
               {FavoriteMovies.length === 0 && (
-                <div className="text-center">No Favorite Movies</div>
+                <div>No Favorite Movies</div>
               )}
               {FavoriteMovies.length > 0 &&
                 movies.map((movie) => {
@@ -282,9 +286,10 @@ export class ProfileView extends React.Component {
                               crossOrigin="anonymous"
                               alt={movie.Title}
                             />
-                            <Figure.Caption>{movie.Title}</Figure.Caption>
+                            <Figure.Caption className="text-white">{movie.Title}</Figure.Caption>
                           </Link>
                           <Button
+                            className="mt-3"
                             value={movie._id}
                             variant="secondary"
                             onClick={() => this.onRemoveFavorite(movie)}>
@@ -296,11 +301,11 @@ export class ProfileView extends React.Component {
                   }
                 })}
             </Row>
+            <div>
+              <Button style={{ float: 'left' }} variant="outline-primary" onClick={() => { onBackClick(null); }}>Back</Button>
+            </div>
           </Card.Body>
         </Card>
-        <div className="backButton">
-          <Button variant="outline-primary" onClick={() => { onBackClick(null); }}>Back</Button>
-        </div>
       </Container>
     );
   }

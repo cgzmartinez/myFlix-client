@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import { Button, Image, Card, Container, Row, Col } from 'react-bootstrap';
 
+import './movie-view.scss'
+
 export class MovieView extends React.Component {
 
   addFavoriteMovie(e) {
@@ -36,37 +38,37 @@ export class MovieView extends React.Component {
       <Container>
         <Row>
           <Col>
-            <Card>
+            <Card className="bg-dark mt-4" style={{ borderRadius: '10px' }}>
               <Card.Body>
-                <div className="movie-view">
+                <div className="movie-view bg-dark text-white fixed">
                   <div className="movie-poster" variant="top" >
-                    <Image className="mx-auto d-block" crossOrigin="anonymous" src={movie.ImagePath} fluid />
+                    <Image className="movie-img mx-auto" crossOrigin="anonymous" src={movie.ImagePath} />
                   </div>
-                  <div className="movie-title">
-                    <span className="label">Title: </span>
+                  <div className="movie-title text-center mt-4">
                     <span className="value">{movie.Title}</span>
                   </div>
-                  <div className="movie-description">
+                  <div className="movie-description pl-5 pr-5 mt-3">
                     <span className="label">Description: </span>
                     <span className="value">{movie.Description}</span>
                   </div>
-                  <div className="movie-genre">
+                  <div className="movie-genre pl-5 pr-5 mt-3">
                     <span className="label">Genre: </span>
                     <Link to={`/genre/${movie.Genre.Name}`}>
                       <span className="genre-link link">{movie.Genre.Name}</span>
                     </Link>
                   </div>
-                  <div className="movie-director">
+                  <div className="movie-director pl-5 pr-5">
                     <span className="label">Director: </span>
                     <Link to={`/directors/${movie.Director.Name}`}>
                       <span className="director-link link">{movie.Director.Name}</span>
                     </Link>
                   </div>
                   <br></br>
-                  <Button variant="primary" onClick={() => { onBackClick(null); }}>Back</Button>
+                  <Button className="ml-5 mr-5" variant="primary" onClick={() => { onBackClick(null); }}>Back</Button>
                   <br></br>
                   <br></br>
                   <Button
+                    className="ml-5 mr-5"
                     variant="outline-primary"
                     value={movie._id}
                     onClick={(e) => this.addFavoriteMovie(e, movie)}

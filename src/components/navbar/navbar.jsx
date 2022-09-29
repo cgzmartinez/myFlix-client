@@ -3,6 +3,8 @@ import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import Logo from '/public/logo.png'
 import { Link } from "react-router-dom";
 
+//import './navbar.scss'
+
 export function Menubar({ user, onLoggedOut }) {
 
   const handleLogOut = (e) => {
@@ -24,27 +26,28 @@ export function Menubar({ user, onLoggedOut }) {
   };
 
   return (
-    <Navbar className="main-nav" sticky="top" bg="light"
-      expand="lg" variant="light">
+    <Navbar className="navbar-custom mt-4" sticky="top" bg="dark"
+      expand="xl" style={{ borderRadius: '15px' }}>
       <Container>
         <Link to="/">
-          <img src={Logo} height={65} />
+          <img src={Logo} height={65} className="pr-3" />
         </Link>
-        <Navbar.Brand className="navbar-logo" href="/">CINEMA SPARK</Navbar.Brand>
+        <Navbar.Brand className="navbar-logo text-white text-center" href="/">CINEMA SPARK</Navbar.Brand>
+        <p className="text-white-50 center-block mt-3">a movie library app</p>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="ml-auto">
+          <Nav className="text-center ml-auto">
             {isAuth() && (
-              <Nav.Link href={`/users/${user}`}>{user}</Nav.Link>
+              <Nav.Link className="text-white-50 text-center" href={`/users/${user}`}>{user}</Nav.Link>
             )}
             {isAuth() && (
-              <Button variant="link" onClick={handleLogOut}>Logout</Button>
+              <Button className="text-white" variant="link" onClick={handleLogOut}>Logout</Button>
             )}
             {!isAuth() && (
-              <Nav.Link href="/">Log In</Nav.Link>
+              <Nav.Link className="text-white" href="/">Log In</Nav.Link>
             )}
             {!isAuth() && (
-              <Nav.Link href="/register">Sign Up</Nav.Link>
+              <Nav.Link className="text-white" href="/register">Sign Up</Nav.Link>
             )}
           </Nav>
         </Navbar.Collapse>

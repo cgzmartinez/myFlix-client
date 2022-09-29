@@ -16,17 +16,20 @@ export class GenreView extends React.Component {
 
     return (
       <Container>
-        <Card>
+        <Card className='mt-5 bg-dark text-white' style={{ borderRadius: '15px' }}>
           <Card.Body>
-            <Row className="mt-3">
+            <Row className="mt-3 pl-3 pr-3">
               <Col className="label">Genre:</Col>
               <Col className="value">{genre.Name}</Col>
             </Row>
-            <Row className="mt-3">
+          </Card.Body>
+          <Card.Body>
+            <Row className="mt-3 pl-3 pr-3">
               <Col className="label">Description:</Col>
               <Col className="value">{genre.Description}</Col>
             </Row>
             <Button
+              className='mt-4'
               onClick={() => {
                 onBackClick();
               }}
@@ -36,7 +39,7 @@ export class GenreView extends React.Component {
             </Button>
           </Card.Body>
         </Card>
-      </Container>
+      </Container >
     );
   }
 }

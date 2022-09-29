@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from "prop-types";
 import { Form, Button, Card, CardGroup, Container, Col, Row } from 'react-bootstrap';
 import axios from 'axios';
+import { Link } from 'react-router-dom'
 
 export function RegistrationView(props) {
   const [username, setUsername] = useState('');
@@ -99,17 +100,18 @@ export function RegistrationView(props) {
   };
 
   return (
-    <Container>
-      <Row>
-        <Col>
+    <Container className="py-5 h-100">
+      <Row className="d-flex justify-content-center align-items-center h-100">
+        <Col className="col-10 col-md-5 col-lg-4 col-xl-6">
           <CardGroup>
-            <Card>
-              <Card.Body>
-                <Card.Title>Sign up</Card.Title>
+            <Card className="bg-dark text-white" style={{ borderRadius: '20px' }}>
+              <Card.Body className="p-5 text-center">
+                <Card.Title className="mb-4">SIGN UP</Card.Title>
                 <Form>
                   <Form.Group className="mb-3" controlId="formUsername">
-                    <Form.Label>Username:</Form.Label>
+                    <Form.Label className="text-left">Username:</Form.Label>
                     <Form.Control
+                      className="bg-dark text-white"
                       type="text"
                       value={username}
                       onChange={(event) => setUsername(event.target.value)}
@@ -117,11 +119,15 @@ export function RegistrationView(props) {
                     />
                     {values.usernameErr && (
                       <p className="validation-message">{values.usernameErr}</p>
-                    )}                  </Form.Group>
+                    )}
+                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">Please enter a valid username</Form.Control.Feedback>
+                  </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formPassword">
                     <Form.Label>Password:</Form.Label>
                     <Form.Control
+                      className="bg-dark text-white"
                       type="password"
                       value={password}
                       onChange={(event) => setPassword(event.target.value)}
@@ -129,11 +135,15 @@ export function RegistrationView(props) {
                     />
                     {values.passwordErr && (
                       <p className="validation-message">{values.passwordErr}</p>
-                    )}                  </Form.Group>
+                    )}
+                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">Please enter a valid password</Form.Control.Feedback>
+                  </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formEmail">
                     <Form.Label>Email:</Form.Label>
                     <Form.Control
+                      className="bg-dark text-white"
                       type="email"
                       value={email}
                       onChange={(event) => setEmail(event.target.value)}
@@ -141,24 +151,34 @@ export function RegistrationView(props) {
                     />
                     {values.emailErr && (
                       <p className="validation-message">{values.emailErr}</p>
-                    )}                  </Form.Group>
+                    )}
+                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">Please enter a valid email</Form.Control.Feedback>
+                  </Form.Group>
 
-                  <Form.Group className="mb-3" controlId="formBirthday">
+                  <Form.Group className="mb-1" controlId="formBirthday">
                     <Form.Label>Birthday:</Form.Label>
-                    <Form.Control type="birthday" placeholder="MM/DD/YYYY" onChange={e => setBirthday(e.target.value)} />
+                    <Form.Control
+                      className="bg-dark text-white"
+                      type="birthday"
+                      placeholder="MM/DD/YYYY"
+                      onChange={e => setBirthday(e.target.value)} />
                   </Form.Group>
                   <br></br>
-
-                  <Button variant="primary" type="submit" onClick={handleSubmit}>
-                    Submit
+                  <Button className="mb-5" variant="primary" type="submit" onClick={handleSubmit}>
+                    Register
                   </Button>
+                  <p className="text-white-50">Already have an account?</p>
+                  <Link to="/">
+                    Login
+                  </Link>
                 </Form>
               </Card.Body>
             </Card>
           </CardGroup>
         </Col>
       </Row>
-    </Container>
+    </Container >
   )
 }
 
