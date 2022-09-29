@@ -135,7 +135,7 @@ class MainView extends React.Component {
                   movies={movies}
                   user={user}
                   onBackClick={() => history.goBack()}
-                  favoriteMovies={favoriteMovies || []}
+                //favoriteMovies={favoriteMovies || []}
                 //handleFav={this.handleFav}
                 //removeFavorite={this.removeFavorite}
 
