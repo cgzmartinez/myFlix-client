@@ -46,9 +46,6 @@ export function Menubar({ user, onLoggedOut }) {
             {!isAuth() && (
               <Nav.Link className="text-white" href="/">Log In</Nav.Link>
             )}
-            {!isAuth() && (
-              <Nav.Link className="text-white" href="/register">Register</Nav.Link>
-            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
