@@ -38,7 +38,7 @@ export class MovieView extends React.Component {
       <Container>
         <Row>
           <Col>
-            <Card className="bg-dark mt-4" style={{ borderRadius: '10px' }}>
+            <Card className="bg-dark mt-4" style={{ borderRadius: '15px' }}>
               <Card.Body>
                 <div className="movie-view bg-dark text-white fixed">
                   <div className="movie-poster" variant="top" >
