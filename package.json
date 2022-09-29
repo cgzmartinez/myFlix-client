@@ -3,7 +3,6 @@
     "version": "1.0.0",
     "main": "src/index.html",
     "description": "",
-    "default": "index.html",
     "scripts": {
         "dev": "parcel src/index.html",
         "build": "parcel build src/index.html"    },
