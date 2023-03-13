@@ -1,0 +1,7 @@
+html, .app-container {
+  backdrop-filter: blur(10px);
+  color: #000;
+  background: linear-gradient(#832198, #00fffb) fixed;
+}
+
+/*# sourceMappingURL=index.ce1d6491.css.map */
