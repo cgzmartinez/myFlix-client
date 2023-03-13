@@ -1,4 +1,14 @@
-.my-flix {
-  color: steelblue;
+html {
+  background: linear-gradient(180deg, rgb(157, 0, 255), rgb(0, 255, 251));
+  background-attachment: fixed;
+  backdrop-filter: blur(10px);
+  color: #000000;
+}
+
+.app-container {
+  background: linear-gradient(180deg, rgb(157, 0, 255), rgb(0, 250, 251));
+  background-attachment: fixed;
+  backdrop-filter: blur(10px);
+  color: #000000;
 }
 /*# sourceMappingURL=index.caa67093.css.map */
